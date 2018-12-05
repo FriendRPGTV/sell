@@ -347,6 +347,9 @@ app.get('/chat/:to/:id', (req, res) => {
 });
 app.post('/pushMessage', (req, res, next) => {
   console.log('new push has sent.');
+  console.log(req);
+  console.log('Props');
+  console.log(res);
   let to = req.data.to;
   let msg = req.data.message;
   if (!to) return;
@@ -359,11 +362,13 @@ app.post('/pushMessage', (req, res, next) => {
   })
   .then(() => {
     console.log("Sent Push Message to "+to);
+    res.send(200);
     res.end();
   })
   .catch((err) => {
     console.log(err);
   });
+  res.send(200);
 });
 
 app.post('/webhook', line.middleware(config), (req, res) => {

@@ -128,16 +128,32 @@ function newMessage() {
 	if($.trim(message) == '') {
 		return false;
   }
+  $.ajax({
+    contentType: 'application/json',
+    data: '{ "to": "{{sendTo}}", "msg": message }',
+    dataType: 'json',
+    success: function(data){
+      console.log("device control succeeded");
+    },
+    error: function(){
+      console.log("Device control failed");
+    },
+    processData: false,
+    type: 'POST',
+    url: 'https://razerforce.herokuapp.com/push'
+  }).catch((err) => {
+    console.log(err);
+  })
 	$('<li class="sent"><img src="https://obs.line-scdn.net/0hCU-pQ2FyHHoQCTH6APZjLSxMEhdnJxoyaG5WFTZZSkw7OQsrL20ETzQOR0M9Ow9-fz9UTmVcQRk4/preview" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
 	$('.message-input input').val(null);
 	$('.contact.active .preview').html('<span>คุณ: </span>' + message);
 	$(".messages").animate({ scrollTop: $(document).height() }, "fast");
 };
 $('#friends').click(function() {
-  location.href = '${baseURL}/u/1';
+  location.href = '${baseURL}/chat/u/1';
 });
 $('#groups').click(function() {
-  location.href = '${baseURL}/g/1';
+  location.href = '${baseURL}/chat/g/1';
 });
 $('.submit').click(function() {
   newMessage();
@@ -197,6 +213,30 @@ const db = {
           text: 'สวัสดีครับ'
         },
       ]
+    },
+    {
+      id: 'Cc646c93b968adfabc0742ce7738c2433',
+      name: 'ทดลอง',
+      avatar: 'https://obs.line-scdn.net/0hCU-pQ2FyHHoQCTH6APZjLSxMEhdnJxoyaG5WFTZZSkw7OQsrL20ETzQOR0M9Ow9-fz9UTmVcQRk4/preview',
+      altmsg: 'กลุ่มทดสอบ',
+      message: [
+        {
+          type: 'sent',
+          text: 'กลุ่มทดสอบ'
+        }
+      ]
+    },
+    {
+      id: 'caec67992e9f39e35bd7190ad51fd834a',
+      name: 'ทดลอง 2',
+      avatar: 'https://obs.line-scdn.net/0hCU-pQ2FyHHoQCTH6APZjLSxMEhdnJxoyaG5WFTZZSkw7OQsrL20ETzQOR0M9Ow9-fz9UTmVcQRk4/preview',
+      altmsg: 'กลุ่มทดสอบ 2',
+      message: [
+        {
+          type: 'sent',
+          text: 'กลุ่มทดสอบ 2'
+        }
+      ]
     }
   ]
 };
@@ -253,8 +293,8 @@ app.get('/', (req, res) => {
   res.send(`Open Chat <a href="${baseURL}/chat/u/1">Here</a>`);
 });
 app.get('/chat', (req, res) => {
-    return res.redirect(baseURL+'chat/u/1');
-    let code = web.headerTop+web.headerBottom+web.bodyTop+web.bodyBottom+web.Footer;
+  return res.redirect(baseURL+'chat/u/1');
+  let code = web.headerTop+web.headerBottom+web.bodyTop+web.bodyBottom+web.Footer;
 	let getFriends = getUser('u', db.friends[0].id);
 	code = code.replace(/({{ChatManager}})/g, 'Chat Manager');
 	code = code.replace(/({{style}})/g, baseURL);
@@ -306,6 +346,7 @@ app.get('/chat/:to/:id', (req, res) => {
   res.send('Sender: '+JSON.stringify(req.params));
 });
 app.post('push', (req, res, next) => {
+  console.log('new push has sent.');
   let to = req.body.to;
   let msg = req.body.message;
   if (!to) return;

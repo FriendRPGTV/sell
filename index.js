@@ -135,7 +135,8 @@ function newMessage() {
       type: 'POST',
       data: JSON.stringify(data),
       dataType: "json",
-      url: 'https://razerforce.herokuapp.com/pushMessage',						
+      contentType: 'application/json',
+      url: 'https://razerforce.herokuapp.com/push',	
       success: function(data) {
           console.log('success');
           console.log(JSON.stringify(data));
@@ -345,13 +346,11 @@ app.get('/chat/:to/:id', (req, res) => {
   }
   res.send('Sender: '+JSON.stringify(req.params));
 });
-app.post('/pushMessage', (req, res, next) => {
+app.post('/push', (req, res, next) => {
+  res.send(JSON.stringify(req.body));
   console.log('new push has sent.');
-  console.log(req);
-  console.log('Props');
-  console.log(res);
-  let to = req.data.to;
-  let msg = req.data.message;
+  let to = req.body.to;
+  let msg = req.body.message;
   if (!to) return;
   let linkCheck = /https?:\/\/.+\.(?:png|jpg|jpeg)/gi;
   if (to === 'g' || to === 'u')

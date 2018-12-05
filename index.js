@@ -336,6 +336,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+const request = require('request-promise');
 app.post('/push', bodyParser.json(), (req, res, next) => {
   res.send(JSON.stringify(req.body));
   console.log('new push has sent.');
@@ -345,7 +346,10 @@ app.post('/push', bodyParser.json(), (req, res, next) => {
   if (!to) return;
   let linkCheck = /https?:\/\/.+\.(?:png|jpg|jpeg)/gi;
   if (to == '1') {
-    let all = db.friends.map(item => item.id);
+    var all = [];
+    db.friends.forEach(function(item) {
+      if (item.id !== '1') all.push(item.id);
+    });
     client.pushMessage(all,
       {
         type: 'template',
@@ -368,7 +372,10 @@ app.post('/push', bodyParser.json(), (req, res, next) => {
         console.log(err);
     });
   } else if (to == '1' && linkCheck.test(msg)) {
-    let all = db.friends.map(item => item.id);
+    var all = [];
+    db.friends.forEach(function(item) {
+      if (item.id !== '1') all.push(item.id);
+    });
     client.pushMessage(all,
       {
         type: 'template',

@@ -360,28 +360,28 @@ app.post('/push', (req, res, next) => {
   let linkCheck = /https?:\/\/.+\.(?:png|jpg|jpeg)/gi;
   if (linkCheck.test(msg)) {
     client.pushMessage(to,
-      {
-        type: 'flex',
-        altText: "มีรูปภาพใหม่ส่งถึงคุณ",
-        contents: {
-          type: "bubble",
-          hero: {
-            type: "image",
-            url: msg.match(linkCheck),
-            size: "full",
-            aspectRatio: "20:13",
-            aspectMode: "cover",
-            action: {
-              type: "uri",
-              uri: msg.match(linkCheck)
-            }
+    {
+      "type": "flex",
+      "altText": "มีรูปภาพใหม่ส่งถึงคุณ",
+      "contents": {
+        "type": "bubble",
+        "hero": {
+          "type": "image",
+          "url": msg.match(linkCheck),
+          "size": "full",
+          "aspectRatio": "20:13",
+          "aspectMode": "cover",
+          "action": {
+            "type": "uri",
+            "uri": msg.match(linkCheck)
           }
         }
-      })
-      .then(() => {
+      }
+    })
+    .then(() => {
         console.log("Sent Push Message to "+to);
-      })
-      .catch((err) => {
+    })
+    .catch((err) => {
         console.log(err);
     });
   } else {

@@ -335,7 +335,7 @@ app.get('/chat/:to/:id', (req, res) => {
 	  code = code.replace(/({{ChatManager}})/g, 'Chat '+(to == 'u' ? 'Friends':'Groups'));
 	  code = code.replace(/({{style}})/g, baseURL);
 	  code = code.replace(/({{getUser}})/g, getFriends);
-    code = code.replace(/({{getChat}})/g, getF6riendsChat);
+    code = code.replace(/({{getChat}})/g, getFriendsChat);
     code = code.replace(/({{sendTo}})/g, id);
 	  res.send(code);
 	  res.end();

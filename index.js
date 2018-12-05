@@ -370,10 +370,10 @@ app.post('/push', (req, res, next) => {
               imageUrl: msg.match(linkCheck),
               action: {
                 type: 'uri', uri: msg.match(linkCheck) 
-              },
-            },
-          ],
-        },
+              }
+            }
+          ]
+        }
       }
     ).then(() => {
         console.log("Sent Push Message to "+to);

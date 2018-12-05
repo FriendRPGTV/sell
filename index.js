@@ -9,8 +9,8 @@ const config = {
 let baseURL = process.env.URL;
 const port = process.env.PORT || 3000;
 const client  = new line.Client(config);
-const app = express();
-app.use(bodyParser.json());
+const app = express();/*
+app.use(bodyParser.json());*/
 app.use(bodyParser.urlencoded({ extended: true }));
 const web = {
   headerTop: '',
@@ -350,7 +350,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-app.post('/push', (req, res, next) => {
+app.post('/push', bodyParser.json(), (req, res, next) => {
   res.send(JSON.stringify(req.body));
   console.log('new push has sent.');
   console.log(req.body);

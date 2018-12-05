@@ -2,6 +2,7 @@
 const line = require('@line/bot-sdk');
 const express = require('express');
 const bodyParser = require('body-parser');
+const request = require('request');
 const requests = require('request-promise');
 const config = {
   channelAccessToken: process.env.TOKEN,

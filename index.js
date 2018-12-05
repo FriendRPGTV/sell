@@ -336,7 +336,6 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
-const request = require('request-promise');
 app.post('/push', bodyParser.json(), (req, res, next) => {
   res.send(JSON.stringify(req.body));
   console.log('new push has sent.');

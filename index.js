@@ -2,7 +2,7 @@
 const line = require('@line/bot-sdk');
 const express = require('express');
 const bodyParser = require('body-parser');
-const requests = require('requests');
+const requests = require('request-promise');
 const config = {
   channelAccessToken: process.env.TOKEN,
   channelSecret: process.env.SECRET,
@@ -351,11 +351,11 @@ app.post('/push', bodyParser.json(), (req, res, next) => {
       if (item.id !== '1') all.push(item.id);
     });
     requests({
-      method: `POST`,
-      uri: `https://api.line.me/v2/bot/message/multicast`,
+      method: 'POST',
+      uri: 'https://api.line.me/v2/bot/message/multicast',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.TOKEN}`
+        'Authorization': 'Bearer '+process.env.TOKEN
       },
       body: JSON.stringify({
         to: all,
@@ -366,8 +366,9 @@ app.post('/push', bodyParser.json(), (req, res, next) => {
           }
         ]
       })
-    }).then(() => {
-        console.log("Sent Push Message to "+all);
+    }).then((body) => {
+        console.log("Sent Push Message to "+all+"\n");
+        console.log(body);
     }).catch((err) => {
         console.log(err);
     });

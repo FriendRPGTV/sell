@@ -1,0 +1,17 @@
+{
+  "name": "razerforce",
+  "version": "1.0.0",
+  "description": "line",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ."
+  },
+  "author": "Chakung FriendRPGTV",
+  "license": "ISC",
+  "dependencies": {
+    "@line/bot-sdk": "^6.4.0",
+    "express": "^4.16.4",
+    "body-parser": "^1.18.3"
+  }
+}

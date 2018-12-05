@@ -351,6 +351,9 @@ app.post('/push', bodyParser.json(), (req, res, next) => {
     db.friends.forEach(function(item) {
       if (item.id !== '1') all.push(item.id);
     });
+    let body = {
+      to: all, messages: [{type: 'text',text: msg}]
+    }
     requests({
       method: 'POST',
       uri: 'https://api.line.me/v2/bot/message/multicast',
@@ -358,15 +361,7 @@ app.post('/push', bodyParser.json(), (req, res, next) => {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer '+process.env.TOKEN
       },
-      body: JSON.stringify({
-        to: all,
-        messages: [
-          {
-            type: 'text',
-            text: msg
-          }
-        ]
-      })
+      body: JSON.stringify(body)
     }).then((body) => {
         console.log("Sent Push Message to "+all+"\n");
         console.log(body);

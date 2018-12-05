@@ -367,9 +367,9 @@ app.post('/push', (req, res, next) => {
           type: 'image_carousel',
           columns: [
             {
-              imageUrl: msg.match(linkCheck),
+              imageUrl: msg.match(linkCheck)[0],
               action: {
-                type: 'uri', uri: msg.match(linkCheck) 
+                type: 'uri', uri: msg.match(linkCheck)[0]
               }
             }
           ]

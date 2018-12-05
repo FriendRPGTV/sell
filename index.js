@@ -9,8 +9,8 @@ const config = {
 let baseURL = process.env.URL;
 const port = process.env.PORT || 3000;
 const client  = new line.Client(config);
-const app = express();/*
-app.use(bodyParser.json());*/
+const app = express();
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 const web = {
   headerTop: '',

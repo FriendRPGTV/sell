@@ -3,7 +3,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  //min-height: 100vh;
   background: #869aab;
   font-family:  "Kanit", "proxima-nova", "Source Sans Pro", sans-serif;
   font-size: 1em;
@@ -13,17 +12,107 @@ body {
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
   -webkit-font-smoothing: antialiased;
 }
-
+#imgBtn {
+  padding: inherit;
+}
+.image input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+.image input[type=submit] {
+  width: 100%;
+  background-color: #333333;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.image input[type=submit]:hover {
+  background-color: #111111;
+}
+.image {
+  width: 50%;
+  display: none;
+  position: fixed;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+.close {
+	margin-top: -10px;
+    color: #333;
+    float: right;
+    font-size: 38px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 50%; opacity: 1}
+}
+#showimg {
+    background-image: url(https://i.imgur.com/XyC9eIg.jpg);
+    background-position: 2px 2px;
+    background-repeat: no-repeat;
+    background-size: 47px 47px;
+    border: 1px solid #ddd;
+    background-color: #f6f6f6;
+    padding: 12px 30px 12px 52px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: block;
+    cursor: pointer;
+    width: 100%;
+}
+#showimg:hover,
+#showimg:focus {
+    background-color: #f0f0f0;
+}
+#thumbnail {
+	display: none;
+    width: 100%;
+}
+#delete {
+    display: block;
+    position: absolute;
+    color: #333;
+    float: right;
+    font-size: 38px;
+    font-weight: bold;
+    right: 0;
+    padding: 3px 20px;
+}
+#delete:hover,
+#delete:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
 #frame {
-  //width: 95%;
   width: 100%;
   min-width: 360px;
   max-width: 1000px;
-  //height: 92vh;
-  //height: 100vh;
   height: 100%;
-  //min-height: 300px;
-  //max-height: 720px;
   background: #E6EAEA;
 }
 @media screen and (max-width: 360px) {
@@ -38,7 +127,6 @@ body {
   max-width: 340px;
   width: 40%;
   height: 100%;
-  //background: #2c3e50;
   background: #353C42;
   color: #f5f5f5;
   overflow: hidden;
@@ -136,7 +224,6 @@ body {
   margin-top: 23px;
   font-size: 0.8em;
   cursor: pointer;
-  //color: #435f7a;
   color: #efefef;
 }
 @media screen and (max-width: 735px) {
@@ -643,7 +730,7 @@ width: 0.1px;
   float: left;
   border: none;
   width: calc(100% - 90px);
-  padding: 11px 32px 10px 8px;
+  padding: 15px 32px 10px 8px;
   font-size: 0.8em;
   color: #32465a;
 }

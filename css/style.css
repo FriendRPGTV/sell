@@ -13,7 +13,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 #imgBtn {
-  padding: inherit;
+  padding: inherit!important;
 }
 .image input[type=text], select {
   width: 100%;
